@@ -53,10 +53,11 @@ router.put('/:id', async (req, res) => {
     {
       // "where" tells the location of the thing to search for. In this case it will look for the id provided in the URL which is located in req.params
       where: {
-        id: req.params,
+        id: req.params.id,
       },
     },
   );
+  res.status(200).json(catData);
 });
 
 // Finds the category item from the supplied ID and removes it from the database. 

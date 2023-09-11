@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findall({
+    const productData = await Product.findAll({
       include: [{ model: Category }, { model:Tag }]
     });
     res.status(200).json(productData);
@@ -28,7 +28,7 @@ router.get('/:id', async (req, res) => {
     // for if the ID in the URL is wrong
     if(!productData) {
       // Phind shows that error can be used instead of message. 
-      res.status(404).json({error: 'No Produt Found Under that ID'})
+      res.status(404).json({error: 'No Product Found Under that ID'})
     }
     res.status(200).json(productData);
   } catch (err) {
