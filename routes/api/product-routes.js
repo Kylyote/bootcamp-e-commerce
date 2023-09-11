@@ -3,21 +3,42 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
-// get all products
-router.get('/', (req, res) => {
+// get all products and return to the requester
+router.get('/', async (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  try {
+    const productData = await Product.findall({
+      include: [{ model: Category }, { model:Tag }]
+    });
+    res.status(200).json(productData);
+  } catch(err) {
+    res.status(500).json(err);
+  }
 });
 
-// get one product
-router.get('/:id', (req, res) => {
+// get one product from the ID and return to Insomnia (in this case), basically same as category-routes.js
+router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  try {
+    const productData = await Product.findByPk(req.params.id, {
+      include: [{ model: Category }, { model:Tag }]
+    });
+    // for if the ID in the URL is wrong
+    if(!productData) {
+      // Phind shows that error can be used instead of message. 
+      res.status(404).json({error: 'No Produt Found Under that ID'})
+    }
+    res.status(200).json(productData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
+  /* req.body should look like this... This request is typed into Insomnia. 
     {
       product_name: "Basketball",
       price: 200.00,
@@ -92,8 +113,14 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  const productData = await Product.destroy({
+    where:{
+      id: req.params.id,
+    }
+  });
+  return res.json(productData);
 });
 
 module.exports = router;
