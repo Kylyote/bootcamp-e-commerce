@@ -46,6 +46,7 @@ THEN I am able to successfully create, update, and delete data in my database
 
 ## Links
 
-Link to repo:
+Link to repo:  
 https://github.com/Kylyote/bootcamp-e-commerce  
-Link to video:
+Link to video:  
+https://drive.google.com/file/d/1dGo6QONhsgtWNDqaZAn14gXxlFFz5MU2/view
