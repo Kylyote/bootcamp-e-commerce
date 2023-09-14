@@ -47,12 +47,12 @@ router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   const tagData = await Tag.update(
     {
-      category_name: req.body.category_name,
+      tag_name: req.body.tag_name,
     },
     {
       // "where" tells the location of the thing to search for. In this case it will look for the id provided in the URL which is located in req.params
       where: {
-        id: req.params,
+        id: req.params.id,
       },
     },
   );
