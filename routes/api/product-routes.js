@@ -28,7 +28,8 @@ router.get('/:id', async (req, res) => {
     // for if the ID in the URL is wrong
     if(!productData) {
       // Phind shows that error can be used instead of message. 
-      res.status(404).json({error: 'No Product Found Under that ID'})
+      res.status(404).json({messagae: 'No Product Found Under that ID'});
+      return;
     }
     res.status(200).json(productData);
   } catch (err) {
